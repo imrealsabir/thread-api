@@ -8,12 +8,16 @@ const port = 3000;
 // Enable CORS for all routes
 app.use(cors());
 
+app.get("/" , async ( req , res) => {
+    res.send("welcome to thread api");
+})
+
 app.get('/download', async (req, res) => {
   try {
-    const apiUrl = 'https://api.threadsdownloader.io/load?url=https://www.threads.net/t/CuW-WBAIljZ/?igshid=NTc4MTIwNjQ2YQ==';
+    const { link } = req.query
+    const apiUrl = `https://api.threadsdownloader.io/load?url=${link}`;
     const response = await axios.get(apiUrl);
     const videoUrl = response.data.media[0].url;
-    console.log(videoUrl);
     res.json({ videoUrl });
   } catch (error) {
     console.error(error);
