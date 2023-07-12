@@ -7,7 +7,12 @@ const port = 3000;
 
 // Enable CORS for multiple origins
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://downloader8k.com'], // Add more origins as needed
+  origin: [
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://127.0.0.1:5500',
+   'https://downloader8k.com'
+  ],
 };
 
 app.use(cors(corsOptions));
