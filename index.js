@@ -5,9 +5,9 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 
-// Enable CORS for all origins
+// Enable CORS for multiple origins
 const corsOptions = {
-  origin: '*', // Allow requests from any origin
+  origin: ['http://localhost:3000', 'https://downloader8k.com'], // Add more origins as needed
 };
 
 app.use(cors(corsOptions));
