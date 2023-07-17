@@ -7,7 +7,7 @@ const port = 3000;
 
 // Enable CORS for multiple origins
 const corsOptions = {
-  origin: '*',
+  origin: "*"
 };
 
 app.use(cors(corsOptions));
@@ -19,13 +19,26 @@ app.get("/", async (req, res) => {
 app.get('/download', async (req, res) => {
   try {
     const { link } = req.query;
-    const apiUrl = `https://api.threadsdownloader.io/load?url=${link}`;
+    const apiUrl = `https://downloadthreadsvideo.com/dl?url=${link}`;
     const response = await axios.get(apiUrl);
-    const videoUrl = response.data.media[0].url;
+    const videoUrl = response.data[0];
+    if(videoUrl)
+    {
     res.json({ videoUrl });
+    }
+    else{
+
+      const regex = /\/t\/([^/]+)/;
+      const match = link.match(regex);
+      const data = match ? match[1] : null;
+      console.log(data);
+      let redirectUrl = `https://threadsvideodownloader.com/download/${data}`
+      res.redirect(redirectUrl);
+
+    }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
+    res.status(500).json({ error: 'An error occurred , please reload the page' });
   }
 });
 
